@@ -1,9 +1,15 @@
 package com.example.demo.model;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Curso {
@@ -15,120 +21,128 @@ public class Curso {
     private String descripcion;
     private String estado;
     private String fecha_creacion;
-    private Long id_instructor;
-    private Long id_gestor;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_instructor", nullable = false)
+    private Instructor instructor;
+
+    @ManyToOne
+    @JoinColumn(name = "id_gestor", nullable = false)
+    private GestorCursos gestor;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private List<Contenido> contenidos;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private List<Evaluacion> evaluaciones;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private List<Inscripcion> inscripciones;
+
+    @OneToMany(mappedBy = "curso", cascade = CascadeType.ALL)
+    private List<Resena> resenas;
 
     public Curso() {}
 
-    public Curso(String nombre_curso, String descripcion, String estado, String fecha_creacion, Long id_instructor, Long id_gestor) {
+    public Curso(String nombre_curso, String descripcion, String estado, String fecha_creacion, Instructor instructor,
+            GestorCursos gestor) {
         this.nombre_curso = nombre_curso;
         this.descripcion = descripcion;
         this.estado = estado;
         this.fecha_creacion = fecha_creacion;
-        this.id_instructor = id_instructor;
-        this.id_gestor = id_gestor;
+        this.instructor = instructor;
+        this.gestor = gestor;
     }
 
-    
-
-
-
-    /**
-     * @return Long return the id_curso
-     */
     public Long getId_curso() {
         return id_curso;
     }
 
-    /**
-     * @param id_curso the id_curso to set
-     */
     public void setId_curso(Long id_curso) {
         this.id_curso = id_curso;
     }
 
-    /**
-     * @return String return the nombre_curso
-     */
     public String getNombre_curso() {
         return nombre_curso;
     }
 
-    /**
-     * @param nombre_curso the nombre_curso to set
-     */
     public void setNombre_curso(String nombre_curso) {
         this.nombre_curso = nombre_curso;
     }
 
-    /**
-     * @return String return the descripcion
-     */
     public String getDescripcion() {
         return descripcion;
     }
 
-    /**
-     * @param descripcion the descripcion to set
-     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return String return the estado
-     */
     public String getEstado() {
         return estado;
     }
 
-    /**
-     * @param estado the estado to set
-     */
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
-    /**
-     * @return String return the fecha_creacion
-     */
     public String getFecha_creacion() {
         return fecha_creacion;
     }
 
-    /**
-     * @param fecha_creacion the fecha_creacion to set
-     */
     public void setFecha_creacion(String fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
 
-    /**
-     * @return Long return the id_instructor
-     */
-    public Long getId_instructor() {
-        return id_instructor;
+    public Instructor getInstructor() {
+        return instructor;
     }
 
-    /**
-     * @param id_instructor the id_instructor to set
-     */
-    public void setId_instructor(Long id_instructor) {
-        this.id_instructor = id_instructor;
+    public void setInstructor(Instructor instructor) {
+        this.instructor = instructor;
     }
 
-    /**
-     * @return Long return the id_gestor
-     */
-    public Long getId_gestor() {
-        return id_gestor;
+    public GestorCursos getGestor() {
+        return gestor;
     }
 
-    /**
-     * @param id_gestor the id_gestor to set
-     */
-    public void setId_gestor(Long id_gestor) {
-        this.id_gestor = id_gestor;
+    public void setGestor(GestorCursos gestor) {
+        this.gestor = gestor;
     }
+
+    public List<Contenido> getContenidos() {
+        return contenidos;
+    }
+
+    public void setContenidos(List<Contenido> contenidos) {
+        this.contenidos = contenidos;
+    }
+
+    public List<Evaluacion> getEvaluaciones() {
+        return evaluaciones;
+    }
+
+    public void setEvaluaciones(List<Evaluacion> evaluaciones) {
+        this.evaluaciones = evaluaciones;
+    }
+
+    public List<Inscripcion> getInscripciones() {
+        return inscripciones;
+    }
+
+    public void setInscripciones(List<Inscripcion> inscripciones) {
+        this.inscripciones = inscripciones;
+    }
+
+    public List<Resena> getResenas() {
+        return resenas;
+    }
+
+    public void setResenas(List<Resena> resenas) {
+        this.resenas = resenas;
+    }
+
+    
+    
 
 }
